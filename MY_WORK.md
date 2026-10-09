@@ -33,7 +33,7 @@
 | **Student ID** | [443830523] |
 | **University Email** | [443830523]@std.psau.edu.sa |
 | **GitHub Username** | [AlanoudAwwd443] |
-| **Repository Link** | [] |
+| **Repository Link** | [https://github.com/AlanoudAwwd443/OS-Assignment1-ALanoud-ALAnaiz1.git] |
  
 ---
 
@@ -129,52 +129,52 @@
 
 ## Your Development Log
 
-### Entry 1 - [Date and Time]
-**What I did**:
+### Entry 1 - [ October 8 2026 ,4:00 pm]
+**What I did**:i logo in in git hub
 
 **Details**:
-
+ change id student in the code and open my account in visual studio
 **Challenges**:
-
+Linking an account to GitHub in Visual Studio in begin it doesn't work and try 2 hours then finally work 
 **Solution**:
-
+i use terminal to To link the account so I can write the comment in Visual Studio and get it to GitHub quickly
 **Time spent**:
-
+2 hours
 ---
 
-### Entry 2 - [Date and Time]
+### Entry 2 - [:October 9 2026 , 12:30 pm]
 **What I did**:
-
+i modified code
 **Details**:
-
+I edited the code, I modified feature 1 and 2
 **Challenges**:
-
+It was normal; he faced difficulty in changing the code because it was large.
 **Solution**:
-
+I searched online to help me find the solution
 **Time spent**:
-
+1 hour
 ---
 
-### Entry 3 - [Date and Time]
+### Entry 3 - [October 9 2026 , 2:23 pm]
 **What I did**:
-
+modified code feature 3
 **Details**:
-
+I modified Feature 3; it was a bit long and required a lot of time.
 **Challenges**:
-
+I modified Feature 3, which was a bit long and required a lot of time; I had many errors.
 **Solution**:
-
+I used the internet to help me fix the error
 **Time spent**:
-
+3 hours
 ---
 
-### Entry 4 - [Date and Time]
+### Entry 4 - [October 9 2026 , 4:00 pm]
 **What I did**:
-
+editing code
 **Details**:
-
+I am about to finish the code because the output does not appear on the screen.
 **Challenges**:
-
+output does not appear on the screen.
 **Solution**:
 
 **Time spent**:
@@ -237,7 +237,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+[Multithreading allows the program to execute multiple tasks simultaneously by creating threads using **Runnable** or by creating a **Thread** object and running it using `Thread.start()`. You also learned how `Thread.sleep()` can be used to simulate work or delays within the thread. What amazed me is how easy it is to implement Multithreading code.]
 
 ## Question 2: What was the most challenging part of this assignment?
 
@@ -245,7 +245,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+[The most difficult part was writing the code. I faced some difficulties in coding, especially in restoring addProcessToQueue, where there was an error that I could not resolve until several hours later. Task 3 involved a lot of work, and the comments were not being saved.]
 
 ## Question 3: How did you overcome the challenges you faced?
 
