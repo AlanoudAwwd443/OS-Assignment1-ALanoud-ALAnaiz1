@@ -176,12 +176,12 @@ I am about to finish the code because the output does not appear on the screen.
 **Challenges**:
 output does not appear on the screen.
 **Solution**:
-
+close the app and rewrite the code
 **Time spent**:
-
+6 hours
 ---
 
-### Entry 5 - [Date and Time]
+### Entry 5 - [October 10 2026 ,2:04 ]
 **What I did**:
 
 **Details**:
