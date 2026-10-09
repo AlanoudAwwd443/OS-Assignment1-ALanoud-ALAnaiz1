@@ -376,7 +376,7 @@ public class SchedulerSimulation {
                           Colors.RESET + "\n");
 
                           // F3: Display waiting time & turnaround time summary table at the end
-                        displayWaitingTimeSummary();
+                        displayWaitingTimeSummary();}
                            
                         }
     
