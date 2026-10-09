@@ -374,15 +374,16 @@ public class SchedulerSimulation {
         System.out.println(Colors.BOLD + Colors.BRIGHT_YELLOW + 
                           "╚══════════════════════════════════════════════════════════════════════════════════╝" + 
                           Colors.RESET + "\n");
-                         
+
+                          // F3: Display waiting time & turnaround time summary table at the end
+                        displayWaitingTimeSummary();
                            
                         }
     
-    // Method to add a process to the queue and map, while printing a "ready" message
-   // F1: Updated to display priority in the output message
-            public static void addProcessToQueue(Process process, Queue<Thread> processQueue, 
-                                        Map<Thread, Process> processMap){
-
+     // Method to add a process to the queue and map, while printing a "ready" message
+    // F1: Updated to display priority in the output message
+    public static void addProcessToQueue(Process process, Queue<Thread> processQueue, 
+                                        Map<Thread, Process> processMap) {
         // Create a new thread to run the process
         Thread thread = new Thread(process);
         
@@ -391,33 +392,94 @@ public class SchedulerSimulation {
         
         // Map the thread to the process, so we can track the process associated with each thread
         processMap.put(thread, process);
- // F3: Display waiting time & turnaround time summary table at the end
-                             displayWaitingTimeSummary();
         
-        
-        // Print a message indicating the process has entered the ready queue
-     // F1: Updated output message to include priority
+        // FEATURE 1: Updated output message to include priority
         System.out.println(Colors.BLUE + "  ➕ " + Colors.BOLD + Colors.CYAN + process.getName() + 
                           Colors.RESET + Colors.YELLOW + " (Priority: " + process.getPriority() + ")" + 
                           Colors.RESET + Colors.BLUE + " added to ready queue" + Colors.RESET + 
                           " │ Burst time: " + Colors.YELLOW + process.getBurstTime() + "ms" + 
                           Colors.RESET);
-    //F3 Printing the final schedule
-    System.out.println("\nFinal Table:");
-System.out.printf("%-10s %-10s %-10s %-10s\n", "Process", "Burst", "Waiting", "Turnaround");
-
-for (Process p : processMap.values()) {
-    System.out.printf("%-10s %-10d %-10d %-10d\n",
-        p.getName(),
-        p.getBurstTime(),
-        p.getRemainingTime(),
-        p.getTurnaroundTime()
-    );
-}
-                    }
-
-            private static void displayWaitingTimeSummary() {
-                // TODO Auto-generated method stub
-              
-            }
+    }
+    
+    // F3: Method to display waiting time & turnaround time summary table
+    // Shows Process Name, Burst Time, Priority, Waiting Time, and Turnaround Time for each process
+    public static void displayWaitingTimeSummary() {
+        // Print table header with decorative border
+        System.out.println(Colors.BOLD + Colors.BRIGHT_CYAN + 
+                          "╔══════════════════════════════════════════════════════════════════════════════════╗" + 
+                          Colors.RESET);
+        System.out.println(Colors.BOLD + Colors.BRIGHT_CYAN + "║" + Colors.RESET + 
+                          Colors.BG_BLUE + Colors.BRIGHT_WHITE + Colors.BOLD + 
+                          "                PROCESS WAITING & TURNAROUND TIME SUMMARY                        " + 
+                          Colors.RESET + Colors.BOLD + Colors.BRIGHT_CYAN + "║" + Colors.RESET);
+        System.out.println(Colors.BOLD + Colors.BRIGHT_CYAN + 
+                          "╠══════════════════════════════════════════════════════════════════════════════════╣" + 
+                          Colors.RESET);
+        
+        
+        // Print column headers
+        System.out.println(Colors.BOLD + Colors.BRIGHT_CYAN + "║" + Colors.RESET + 
+                          "  " + Colors.BOLD + Colors.BRIGHT_WHITE + 
+                          String.format("%-10s", "Process") + 
+                          String.format("%-12s", "Burst Time") + 
+                          String.format("%-10s", "Priority") + 
+                          String.format("%-15s", "Waiting Time") + 
+                          String.format("%-18s", "Turnaround Time") + 
+                          Colors.RESET + "   " +
+                          Colors.BOLD + Colors.BRIGHT_CYAN + "║" + Colors.RESET);
+        
+        System.out.println(Colors.BOLD + Colors.BRIGHT_CYAN + 
+                          "╠══════════════════════════════════════════════════════════════════════════════════╣" + 
+                          Colors.RESET);
+        
+        // Calculate totals for average calculation
+        long totalWaitingTime = 0;
+        long totalTurnaroundTime = 0;
+        
+        // Print each process's information in the table
+        for (Process process : completedProcesses) {
+            // FEATURE 3: Calculate turnaround time = waiting time + burst time
+            long turnaroundTime = process.getTurnaroundTime();
+            String waitTimeStr = process.getTotalWaitingTime() + "ms";
+            String turnaroundStr = turnaroundTime + "ms";
+            
+            System.out.println(Colors.BOLD + Colors.BRIGHT_CYAN + "║" + Colors.RESET + 
+                              "  " + Colors.BRIGHT_CYAN + 
+                              String.format("%-10s", process.getName()) + Colors.RESET +
+                              Colors.YELLOW + 
+                              String.format("%-12s", process.getBurstTime() + "ms") + Colors.RESET +
+                              Colors.MAGENTA + 
+                              String.format("%-10s", process.getPriority()) + Colors.RESET +
+                              Colors.BRIGHT_GREEN + 
+                              String.format("%-15s", waitTimeStr) + Colors.RESET +
+                              Colors.BRIGHT_YELLOW + 
+                              String.format("%-18s", turnaroundStr) + Colors.RESET +
+                              "   " +
+                              Colors.BOLD + Colors.BRIGHT_CYAN + "║" + Colors.RESET);
+            
+            totalWaitingTime += process.getTotalWaitingTime();
+            totalTurnaroundTime += turnaroundTime;
+        }
+        
+        // Print separator before averages
+        System.out.println(Colors.BOLD + Colors.BRIGHT_CYAN + 
+                          "╠══════════════════════════════════════════════════════════════════════════════════╣" + 
+                          Colors.RESET);
+        
+        // Calculate and display averages
+        double avgWaitingTime = (double) totalWaitingTime / completedProcesses.size();
+        double avgTurnaroundTime = (double) totalTurnaroundTime / completedProcesses.size();
+        
+        System.out.println(Colors.BOLD + Colors.BRIGHT_CYAN + "║" + Colors.RESET + 
+                          "  " + Colors.BOLD + Colors.BRIGHT_YELLOW + 
+                          String.format("%-47s", "Averages:") + 
+                          String.format("%-15s", String.format("%.2fms", avgWaitingTime)) + 
+                          String.format("%-18s", String.format("%.2fms", avgTurnaroundTime)) + 
+                          Colors.RESET + "   " +
+                          Colors.BOLD + Colors.BRIGHT_CYAN + "║" + Colors.RESET);
+        
+        System.out.println(Colors.BOLD + Colors.BRIGHT_CYAN + 
+                          "╚══════════════════════════════════════════════════════════════════════════════════╝" + 
+                          Colors.RESET + "\n");
+    }
 }
