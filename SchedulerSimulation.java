@@ -1,7 +1,7 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
 
 // ANSI Color Codes for enhanced terminal output
@@ -25,10 +25,13 @@ class Colors {
 
 // Class representing a process that implements Runnable to be run by a thread
 class Process implements Runnable {
-    private String name; // Name of the process
-    private int burstTime; // Total time the process requires to complete (in milliseconds)
-    private int timeQuantum; // Time slice (time quantum) allowed per CPU access (in milliseconds)
+    private final String name; // Name of the process
+    private final int burstTime; // Total time the process requires to complete (in milliseconds)
+    private final int timeQuantum; // Time slice (time quantum) allowed per CPU access (in milliseconds)
     private int remainingTime; // Time left for the process to finish its execution
+
+    // FEATURE 1: Add priority field (1-10)
+     private int priority;
 
     // Constructor to initialize the process with name, burst time, and time quantum
     public Process(String name, int burstTime, int timeQuantum) {
