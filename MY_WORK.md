@@ -211,14 +211,14 @@ Reviewing the slides and the code
 
 > 💡 **TIP:** Fill this in **last**, after all entries are written.
 
-**Total time spent on assignment**: [X hours]
+**Total time spent on assignment**: [12 hours]
 
-**Most challenging part**:
+**Most challenging part**:The second part was fun, but he faced some problems with the code and the output, though he benefited from it a lot.
 
-**Most interesting learning**:
+**Most interesting learning**: Part 3 was fun because it shows how we calculate waiting time and turnaround time, and it explains the effect of the time quantum on each process.
 
 **What I would do differently next time**:
-
+I'm trying to simplify the printing and focus more on presenting the data in a simpler way, so tracking the execution is easier.
 ---
 
 # Part B: Reflection (0.5 mark)
