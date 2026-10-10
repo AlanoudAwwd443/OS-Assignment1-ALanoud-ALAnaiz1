@@ -183,15 +183,15 @@ close the app and rewrite the code
 
 ### Entry 5 - [October 10 2026 ,2:04 ]
 **What I did**:
-
+I answer the questions
 **Details**:
-
+I answered all the questions; there were a lot of them and they took a lot of time.
 **Challenges**:
-
+Comparison questions
 **Solution**:
-
+Reviewing the slides and the code
 **Time spent**:
-
+2 houers
 ---
 
 ### Entry 6 - [Optional - Date and Time]
@@ -253,7 +253,7 @@ close the app and rewrite the code
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+[By using the internet and websites such as greekforfreeks and w3schools, I faced difficulties with Turnaround Time and Feature 3 in general. However, after researching and verifying the information, I realized that the topic is easy but requires practice and focused study.]
 
 ## Question 4: How can you apply multithreading concepts in real-world applications?
 
@@ -261,7 +261,7 @@ close the app and rewrite the code
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+[Multithreading appears in many applications that we use daily, such as browsers, which open each tab in an independent thread so that the entire browser does not freeze if a problem occurs on a single page. Games also rely on multithreading to run physics, sound, artificial intelligence, and player movement simultaneously without delay. In mobile applications, playing music occurs in an independent thread so that the song continues while browsing the app. Even messaging applications use threads to receive messages in the background while the user writes a new message at the same time. ]
 
 ### Optional: What would you like to learn more about?
 
@@ -293,7 +293,7 @@ close the app and rewrite the code
 
 **Your Answer:** *(3-5 sentences)*
 
-[Write your answer here.]
+[A process is an independent program with its own memory, whereas a thread is a lightweight execution path that runs within the same process and shares its memory. In our project, the class named Process is merely a simulation of a process, but the actual execution is carried out via a thread created in the line containing new Thread(process) inside addProcessToQueue(). Using real processes would make communication between them slower and increase the creation overhead, whereas threads are lighter and share the same memory, which is suitable for fast scheduling like Round Robin. Additionally, threads allow us to implement concepts such as Thread.start() and Thread.join() easily, as seen in currentThread.start() and currentThread.join() within the main loop. For this reason, multithreading was the best choice for simulating the CPU scheduler in this project.]
 
 ## Question 2: Ready Queue Behavior
 
@@ -305,15 +305,21 @@ close the app and rewrite the code
 
 **Your Answer:** *(3-5 sentences)*
 
-[Write your answer here.]
+[In the Round-Robin algorithm, if a process does not complete within the time quantum, it is immediately returned to the ready queue to receive a new turn later. In the output of my program, process P4 had a large burst time of 5959ms and therefore did not finish during the first quantum, as shown in the line:
+➕ P4 (Priority: 5) added to ready queue │ Burst time: 5959ms
+After checking the console, I found that P4 was rescheduled (write the number here) times before it completed entirely. Returning the process to the ready queue is important because it ensures fairness, so that processes with large burst times do not monopolize the CPU and every thread gets an equal opportunity in each cycle.]
 
 Example from my output:
 ```
-[Paste a relevant snippet from your program output here showing a process being re-queued]
+[➕ P7 (Priority: 1) added to ready queue │ Burst time: 3296ms
+┌─ Ready Queue ──────────────────────────────────────────────────────────────────
+│ [P9 → P10 → P11 → P12 → P13 → P14 → P15 → P1 → P2 → P3 → P4 → P5 → P7]
+└───────────────────────────────────────────────────────────────────────────────
+]
 ```
 
 **Explanation of example:**
-[Explain what is happening in the output snippet you pasted.]
+[In this example, process P7 was added to the ready queue with a burst time of 3296ms, which means it requires more than one cycle if the time quantum is smaller than this value. Its appearance in the ready queue alongside other processes illustrates that the scheduler goes through each process sequentially and allocates it the same quantum. When process P7 does not complete its execution within the quantum, a context switch is performed, and it is placed back into the ready queue to get another chance in a subsequent cycle. Reintroducing the process into the ready queue in this manner maintains fairness among all threads, ensuring that no single process monopolizes the CPU, and each process receives a portion of time until it completes entirely.]
 
 ## Question 3: Thread Lifecycle
 
@@ -323,15 +329,19 @@ Example from my output:
 
 **Your Answer:** *(3-5 sentences overall; one short explanation per state)*
 
-1. **New**: [When is P1 in the New state?]
+1. **New**: [P1 is in the New state at the moment it is created inside addProcessToQueue() when we call:
+Thread thread = new Thread(process);
+Here, the thread has been created but hasn’t started executing yet.]
 
-2. **Runnable**: [When does P1 become Runnable?]
+2. **Runnable**: [P1 moves to the Runnable state right after being added to the ready queue using:
+processQueue.add(thread);
+At this moment, the thread is ready to run and is waiting for the scheduler to call it.]
 
-3. **Running**: [When is P1 Running?]
+3. **Running**: [P1 enters the Running state when the scheduler calls: currentThread.start(); Here, the process's run() function starts executing, and the quantum begins.]
 
-4. **Waiting**: [When and why would a thread be Waiting?]
+4. **Waiting**: [p1 enters a Waiting state while executing Thread.sleep(stepTime) inside run(), where it pauses temporarily to simulate the execution of the quantum. Also, the main thread itself goes into a Waiting state when it calls: currentThread.join(); because it’s waiting for P1 to finish before moving on to the next process.]
 
-5. **Terminated**: [When is P1 Terminated?]
+5. **Terminated**: [p1 reaches the Terminated state when run() or runToCompletion() ends and remainingTime == 0. After that, it doesn't go back to the ready queue and is added to the list of completed processes.]
 
 ## Question 4: Real-World Applications
 
@@ -341,32 +351,32 @@ Example from my output:
 
 **Your Answer:** *(3-5 sentences per example)*
 
-### Example 1 (operating-system level): [Name of scenario]
+### Example 1 (operating-system level): [online gameing]
 
 **Description**:
-[Describe the real-world scenario.]
+[In multiplayer game servers, like an online game with 20 players, each player sends events (movement, shooting, jumping…) and the server has to handle each player quickly. The server can run each player in a thread and give each player a small time quantum to process their event, then do a context switch to move to the next player. This is similar to your simulation, where each process represents a player, and the quantum is the time allotted to handle the player's event.]
 
 **Why Round-Robin works well here**:
-[Fairness, responsiveness, predictability?]
+[Round-Robin keeps the response fast for all players, so no single player causes delays for the others. It also ensures fairness, because every player gets the same amount of time to handle their events. And since the quantum is fixed, the game becomes predictable and stable, like we saw in your simulations when the processes took turns running without any single process hogging the CPU.]
 
-### Example 2: [Name of application/scenario]
+### Example 2: [operating system]
 
 **Description**:
-[Describe the real-world scenario or application.]
+[In real operating systems, like Windows or Linux, there are dozens of programs running at the same time, and each program has multiple threads. The OS uses an algorithm like Round-Robin to give each thread a small slice of CPU time called a time quantum, then does a context switch to move to the next program. This is exactly what happens in my simulation, where each process like P1 or P7 represents a program, and the quantum is the time each thread gets before going back to the ready queue.]
 
 **Why Round-Robin works well here**:
-[Fairness, responsiveness, predictability?]
+[Round-Robin is suitable for operating systems because it ensures fairness among all programs, so no single program monopolizes the CPU. It also provides high responsiveness for interactive applications like browsers, since each program gets a small slice of time periodically. And because the quantum is fixed, the system's performance is predictable and controllable, just like we saw in our simulations when processes took turns on the CPU in an organized way.]
 
 ## Summary
 
 **Key concepts I understood through these questions:**
-1.
-2.
-3.
+1.I understood the role of Round-Robin and how sending the process back to the ready queue after the time quantum ends ensures fairness and prevents monopoly.
+2.I understood the difference between a process and a thread, and how the Process class in the code is just a simulation, while the real execution happens through Thread.start() and Thread.join().
+3.I understood the importance of threading in programming and how it makes processes in multi-tasking programs easier and faster.
 
 **Concepts I need to study more:**
-1.
-2.
+1.How to use each thread, the right time to use it, and how I add it in a program and an app so that programs run faster and better
+2.I need to look more into how waiting time is calculated precisely, especially the relationship between lastReadyTime and updateWaitingTime().
 
 ---
 
