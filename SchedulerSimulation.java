@@ -438,7 +438,7 @@ public class SchedulerSimulation {
         
         // Print each process's information in the table
         for (Process process : completedProcesses) {
-            // FEATURE 3: Calculate turnaround time = waiting time + burst time
+            // F3: Calculate turnaround time = waiting time + burst time
             long turnaroundTime = process.getTurnaroundTime();
             String waitTimeStr = process.getTotalWaitingTime() + "ms";
             String turnaroundStr = turnaroundTime + "ms";
